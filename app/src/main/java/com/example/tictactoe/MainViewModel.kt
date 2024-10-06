@@ -18,10 +18,10 @@ class MainViewModel: ViewModel() {
         // 버튼 클릭 시 텍스트 변경
         _buttonText.value = newText
     }
+    // button 관련 추가됨.
 
 
-
-    private val _box: MutableLiveData<List<String>> = MutableLiveData(List(10){""})
+    private val _box: MutableLiveData<List<String>> = MutableLiveData(List(26){""})
     val box: LiveData<List<String>> get() = _box  // 외부에 공개하는 데이터. 여기서는 필요 없나?
 
     private var _player: MutableLiveData<Int> = MutableLiveData(0) // 0 : O의 차례입니다, 1 : X의 차례입니다, 2 : 게임 오버, 3 : 무승부
@@ -33,6 +33,8 @@ class MainViewModel: ViewModel() {
     private var _restart : MutableLiveData<Int> = MutableLiveData(0) // 한판 더 버튼 활성화 여부. restart 1 되면 '재시작'으로 활성화. (UI가 바뀜)
     val restart : LiveData<Int> = _restart
 
+
+    // 히스토리 관련 추가됨
     private val _historyList = MutableLiveData<MutableList<TicTacToeState>>(mutableListOf())
     val historyList: LiveData<MutableList<TicTacToeState>> = _historyList
 
@@ -60,33 +62,43 @@ class MainViewModel: ViewModel() {
         // Box들을 눌렀을때 일어나는 일. 타일이 채워지고, 플레이어 O, X가 변하고(그에 따라 문구도 변하고), 게임 횟수가 늘어남.
     // 기존 보드가 채워지지 않았는데도 클릭이 더이상 안됨.
     fun CheckFinish(){
-        if (_box.value?.get(1) == "X" && _box.value?.get(2) == "X" && _box.value?.get(3) == "X" ||
-            _box.value?.get(4) == "X" && _box.value?.get(5) == "X" && _box.value?.get(6) == "X" ||
-            _box.value?.get(7) == "X" && _box.value?.get(8) == "X" && _box.value?.get(9) == "X" ||
-            _box.value?.get(1) == "X" && _box.value?.get(4) == "X" && _box.value?.get(7) == "X" ||
-            _box.value?.get(2) == "X" && _box.value?.get(5) == "X" && _box.value?.get(8) == "X" ||
-            _box.value?.get(3) == "X" && _box.value?.get(6) == "X" && _box.value?.get(9) == "X" ||
-            _box.value?.get(1) == "X" && _box.value?.get(5) == "X" && _box.value?.get(9) == "X" ||
-            _box.value?.get(3) == "X" && _box.value?.get(5) == "X" && _box.value?.get(7) == "X" ||
+        if ((_box.value?.get(1) == "X" && _box.value?.get(2) == "X" && _box.value?.get(3) == "X" && _box.value?.get(4) == "X"&& _box.value?.get(5) == "X")||
+            (_box.value?.get(6) == "X" && _box.value?.get(7) == "X" && _box.value?.get(8) == "X" && _box.value?.get(9) == "X"&& _box.value?.get(10) == "X")||
+            (_box.value?.get(11) == "X" && _box.value?.get(12) == "X" && _box.value?.get(13) == "X" && _box.value?.get(14) == "X"&& _box.value?.get(15) == "X")||
+            (_box.value?.get(16) == "X" && _box.value?.get(17) == "X" && _box.value?.get(18) == "X" && _box.value?.get(19) == "X"&& _box.value?.get(20) == "X")||
+            (_box.value?.get(21) == "X" && _box.value?.get(22) == "X" && _box.value?.get(23) == "X" && _box.value?.get(24) == "X"&& _box.value?.get(25) == "X")||
+            (_box.value?.get(1) == "X" && _box.value?.get(6) == "X" && _box.value?.get(11) == "X" && _box.value?.get(16) == "X"&& _box.value?.get(21) == "X")||
+            (_box.value?.get(2) == "X" && _box.value?.get(7) == "X" && _box.value?.get(12) == "X" && _box.value?.get(17) == "X"&& _box.value?.get(22) == "X")||
+            (_box.value?.get(3) == "X" && _box.value?.get(8) == "X" && _box.value?.get(13) == "X" && _box.value?.get(18) == "X"&& _box.value?.get(23) == "X")||
+            (_box.value?.get(4) == "X" && _box.value?.get(9) == "X" && _box.value?.get(14) == "X" && _box.value?.get(19) == "X"&& _box.value?.get(24) == "X")||
+            (_box.value?.get(5) == "X" && _box.value?.get(10) == "X" && _box.value?.get(15) == "X" && _box.value?.get(20) == "X"&& _box.value?.get(25) == "X")||
+            (_box.value?.get(1) == "X" && _box.value?.get(7) == "X" && _box.value?.get(13) == "X" && _box.value?.get(19) == "X"&& _box.value?.get(25) == "X")||
+            (_box.value?.get(5) == "X" && _box.value?.get(9) == "X" && _box.value?.get(13) == "X" && _box.value?.get(17) == "X"&& _box.value?.get(21) == "X")||
 
-            _box.value?.get(1) == "O" && _box.value?.get(2) == "O" && _box.value?.get(3) == "O" ||
-            _box.value?.get(4) == "O" && _box.value?.get(5) == "O" && _box.value?.get(6) == "O" ||
-            _box.value?.get(7) == "O" && _box.value?.get(8) == "O" && _box.value?.get(9) == "O" ||
-            _box.value?.get(1) == "O" && _box.value?.get(4) == "O" && _box.value?.get(7) == "O" ||
-            _box.value?.get(2) == "O" && _box.value?.get(5) == "O" && _box.value?.get(8) == "O" ||
-            _box.value?.get(3) == "O" && _box.value?.get(6) == "O" && _box.value?.get(9) == "O" ||
-            _box.value?.get(1) == "O" && _box.value?.get(5) == "O" && _box.value?.get(9) == "O" ||
-            _box.value?.get(3) == "O" && _box.value?.get(5) == "O" && _box.value?.get(7) == "O"
+            (_box.value?.get(1) == "O" && _box.value?.get(2) == "O" && _box.value?.get(3) == "O" && _box.value?.get(4) == "O"&& _box.value?.get(5) == "O")||
+            (_box.value?.get(6) == "O" && _box.value?.get(7) == "O" && _box.value?.get(8) == "O" && _box.value?.get(9) == "O"&& _box.value?.get(10) == "O")||
+            (_box.value?.get(11) == "O" && _box.value?.get(12) == "O" && _box.value?.get(13) == "O" && _box.value?.get(14) == "O"&& _box.value?.get(15) == "O")||
+            (_box.value?.get(16) == "O" && _box.value?.get(17) == "O" && _box.value?.get(18) == "O" && _box.value?.get(19) == "O"&& _box.value?.get(20) == "O")||
+            (_box.value?.get(21) == "O" && _box.value?.get(22) == "O" && _box.value?.get(23) == "O" && _box.value?.get(24) == "O"&& _box.value?.get(25) == "O")||
+            (_box.value?.get(1) == "O" && _box.value?.get(6) == "O" && _box.value?.get(11) == "O" && _box.value?.get(16) == "O"&& _box.value?.get(21) == "O")||
+            (_box.value?.get(2) == "O" && _box.value?.get(7) == "O" && _box.value?.get(12) == "O" && _box.value?.get(17) == "O"&& _box.value?.get(22) == "O")||
+            (_box.value?.get(3) == "O" && _box.value?.get(8) == "O" && _box.value?.get(13) == "O" && _box.value?.get(18) == "O"&& _box.value?.get(23) == "O")||
+            (_box.value?.get(4) == "O" && _box.value?.get(9) == "O" && _box.value?.get(14) == "O" && _box.value?.get(19) == "O"&& _box.value?.get(24) == "O")||
+            (_box.value?.get(5) == "O" && _box.value?.get(10) == "O" && _box.value?.get(15) == "O" && _box.value?.get(20) == "O"&& _box.value?.get(25) == "O")||
+            (_box.value?.get(1) == "O" && _box.value?.get(7) == "O" && _box.value?.get(13) == "O" && _box.value?.get(19) == "O"&& _box.value?.get(25) == "O")||
+            (_box.value?.get(5) == "O" && _box.value?.get(9) == "O" && _box.value?.get(13) == "O" && _box.value?.get(17) == "O"&& _box.value?.get(21) == "O")
+
             ) {
             _player.value = 2 // 게임 오버
             _restart.value = 2
         }
-        else if (_count == 8){
+        else if (_count == 24){
             _player.value = 3
             _restart.value = 1
         }// 다 채워지면 무승부
     }
 
+    // 히스토리도 추가됨
     private fun saveHistory(currentState: TicTacToeState){
 
         _historyList.value?.add(currentState)
@@ -99,9 +111,10 @@ class MainViewModel: ViewModel() {
         _restart.value = 0
         _count = 0
         _player.value = 0
-        _box.value = List(10) { "" }
+        _box.value = List(26) { "" }
 
     }
+
     fun getHistoryListSize(): Int {
         return _historyList.value?.size ?: 0  // null인 경우 0을 반환
     }

@@ -21,6 +21,8 @@ import com.google.android.material.navigation.NavigationView
 class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModels()
+
+    // 새로 추가한 부분들
     private lateinit var openDrawerButton: ImageButton
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var adapter: TicTacToeAdapter
@@ -77,6 +79,8 @@ class MainActivity : AppCompatActivity() {
         viewModel.historyList.observe(this, Observer { historyList ->
             adapter.updateHistory(historyList)
         })
+
+        // box들이 어떻게 동작하는지를 동적으로 보는.
         viewModel.box.observe(this) { box ->
             updateUI(box)
             viewModel.CheckFinish()
@@ -110,18 +114,25 @@ class MainActivity : AppCompatActivity() {
             return TicTacToeState(board, currentPlayer)
         }
 
-        findViewById<TextView>(R.id.box_1).setOnClickListener { viewModel.PressBox(1) } // 클릭하면 pressbox 함수가 실행되어 데이터가 변한다.
-        findViewById<TextView>(R.id.box_2).setOnClickListener { viewModel.PressBox(2) }
-        findViewById<TextView>(R.id.box_3).setOnClickListener { viewModel.PressBox(3) }
-        findViewById<TextView>(R.id.box_4).setOnClickListener { viewModel.PressBox(4) }
-        findViewById<TextView>(R.id.box_5).setOnClickListener { viewModel.PressBox(5) }
-        findViewById<TextView>(R.id.box_6).setOnClickListener { viewModel.PressBox(6) }
-        findViewById<TextView>(R.id.box_7).setOnClickListener { viewModel.PressBox(7) }
-        findViewById<TextView>(R.id.box_8).setOnClickListener { viewModel.PressBox(8) }
-        findViewById<TextView>(R.id.box_9).setOnClickListener { viewModel.PressBox(9) }
+//        findViewById<TextView>(R.id.box_1).setOnClickListener { viewModel.PressBox(1) } // 클릭하면 pressbox 함수가 실행되어 데이터가 변한다.
+//        findViewById<TextView>(R.id.box_2).setOnClickListener { viewModel.PressBox(2) }
+//        findViewById<TextView>(R.id.box_3).setOnClickListener { viewModel.PressBox(3) }
+//        findViewById<TextView>(R.id.box_4).setOnClickListener { viewModel.PressBox(4) }
+//        findViewById<TextView>(R.id.box_5).setOnClickListener { viewModel.PressBox(5) }
+//        findViewById<TextView>(R.id.box_6).setOnClickListener { viewModel.PressBox(6) }
+//        findViewById<TextView>(R.id.box_7).setOnClickListener { viewModel.PressBox(7) }
+//        findViewById<TextView>(R.id.box_8).setOnClickListener { viewModel.PressBox(8) }
+//        findViewById<TextView>(R.id.box_9).setOnClickListener { viewModel.PressBox(9) }
+
+        for (i in 1..25) {
+            val resId = resources.getIdentifier("box_$i", "id", packageName)
+            findViewById<TextView>(resId)?.setOnClickListener {
+                viewModel.PressBox(i)
+            }
+        } // for문으로 변경
 
         findViewById<TextView>(R.id.button).setOnClickListener {
-            val currentState = getCurrentBoardState()
+            val currentState = getCurrentBoardState() // 추가됨.
             viewModel.restart(currentState)
         } // 클릭하면 restart 함수 실행되어 데이터 초기화.
 
@@ -130,17 +141,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun updateUI(box: List<String>) {
-        findViewById<TextView>(R.id.box_1).text = box[1]
-        findViewById<TextView>(R.id.box_2).text = box[2]
-        findViewById<TextView>(R.id.box_3).text = box[3]
-        findViewById<TextView>(R.id.box_4).text = box[4]
-        findViewById<TextView>(R.id.box_5).text = box[5]
-        findViewById<TextView>(R.id.box_6).text = box[6]
-        findViewById<TextView>(R.id.box_7).text = box[7]
-        findViewById<TextView>(R.id.box_8).text = box[8]
-        findViewById<TextView>(R.id.box_9).text = box[9]
+//        findViewById<TextView>(R.id.box_1).text = box[1]
+//        findViewById<TextView>(R.id.box_2).text = box[2]
+//        findViewById<TextView>(R.id.box_3).text = box[3]
+//        findViewById<TextView>(R.id.box_4).text = box[4]
+//        findViewById<TextView>(R.id.box_5).text = box[5]
+//        findViewById<TextView>(R.id.box_6).text = box[6]
+//        findViewById<TextView>(R.id.box_7).text = box[7]
+//        findViewById<TextView>(R.id.box_8).text = box[8]
+//        findViewById<TextView>(R.id.box_9).text = box[9]
+
+        for (i in 1..25) {
+            val resId = resources.getIdentifier("box_$i", "id", packageName)
+            findViewById<TextView>(resId)?.text = box[i]
+        } // 반복문 사용으로 바꿔줌.
     }
 
+    // 추가됨.
     private fun onRevert(position: Int) {
         drawerLayout.closeDrawer(GravityCompat.START)
         // Revert game state to the selected position
