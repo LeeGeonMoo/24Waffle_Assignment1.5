@@ -30,7 +30,23 @@ class TicTacToeAdapter(
             itemView.findViewById(R.id.block_5),
             itemView.findViewById(R.id.block_6),
             itemView.findViewById(R.id.block_7),
-            itemView.findViewById(R.id.block_8)
+            itemView.findViewById(R.id.block_8),
+            itemView.findViewById(R.id.block_9),
+            itemView.findViewById(R.id.block_10),
+            itemView.findViewById(R.id.block_11),
+            itemView.findViewById(R.id.block_12),
+            itemView.findViewById(R.id.block_13),
+            itemView.findViewById(R.id.block_14),
+            itemView.findViewById(R.id.block_15),
+            itemView.findViewById(R.id.block_16),
+            itemView.findViewById(R.id.block_17),
+            itemView.findViewById(R.id.block_18),
+            itemView.findViewById(R.id.block_19),
+            itemView.findViewById(R.id.block_20),
+            itemView.findViewById(R.id.block_21),
+            itemView.findViewById(R.id.block_22),
+            itemView.findViewById(R.id.block_23),
+            itemView.findViewById(R.id.block_24)
         )
         val gameStart: TextView = view.findViewById(R.id.game_start)
     }
@@ -52,7 +68,7 @@ class TicTacToeAdapter(
                 else -> {""}
             }
 
-        for (i in 0..8) {
+        for (i in 0..24) {
             holder.boardTextViews[i].text = currentState.board[i]
         }
 

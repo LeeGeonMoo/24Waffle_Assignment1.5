@@ -122,14 +122,14 @@ class MainViewModel: ViewModel() {
     fun revertToState(position: Int) {
         val size = getHistoryListSize()
         Log.d("TAG","here")
-        val stateToRevert = historyList.value?.getOrNull(size-1-position)
+        val stateToRevert = historyList.value?.getOrNull(size-1-position) // 특정 state로 돌아간다. historylist의 특정 index로.
         if (stateToRevert != null) {
             _player.value = stateToRevert.currentPlayer // 플레이어 상태도 업데이트
 
             val board = stateToRevert.board
 
             // List를 생성하면서 각 인덱스에 대해 board의 값을 담습니다.
-            _box.value = List(10) { index -> board.getOrElse(index-1) { "" } } // board의 각 인덱스 값을 담고, 없으면 빈 문자열로 설정
+            _box.value = List(26) { index -> board.getOrElse(index-1) { "" } } // board의 각 인덱스 값을 담고, 없으면 빈 문자열로 설정
 
 //            Log.d("TicTacToeViewModel", "Value at index $index: $specificValue")
         } else {

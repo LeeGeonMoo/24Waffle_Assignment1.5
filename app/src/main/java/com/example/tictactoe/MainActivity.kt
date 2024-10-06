@@ -107,7 +107,23 @@ class MainActivity : AppCompatActivity() {
                 findViewById<TextView>(R.id.box_6).text.toString(),
                 findViewById<TextView>(R.id.box_7).text.toString(),
                 findViewById<TextView>(R.id.box_8).text.toString(),
-                findViewById<TextView>(R.id.box_9).text.toString()
+                findViewById<TextView>(R.id.box_9).text.toString(),
+                findViewById<TextView>(R.id.box_10).text.toString(),
+                findViewById<TextView>(R.id.box_11).text.toString(),
+                findViewById<TextView>(R.id.box_12).text.toString(),
+                findViewById<TextView>(R.id.box_13).text.toString(),
+                findViewById<TextView>(R.id.box_14).text.toString(),
+                findViewById<TextView>(R.id.box_15).text.toString(),
+                findViewById<TextView>(R.id.box_16).text.toString(),
+                findViewById<TextView>(R.id.box_17).text.toString(),
+                findViewById<TextView>(R.id.box_18).text.toString(),
+                findViewById<TextView>(R.id.box_19).text.toString(),
+                findViewById<TextView>(R.id.box_20).text.toString(),
+                findViewById<TextView>(R.id.box_21).text.toString(),
+                findViewById<TextView>(R.id.box_22).text.toString(),
+                findViewById<TextView>(R.id.box_23).text.toString(),
+                findViewById<TextView>(R.id.box_24).text.toString(),
+                findViewById<TextView>(R.id.box_25).text.toString()
             )
             val currentPlayer: Int? = viewModel.player.value
 
